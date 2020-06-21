@@ -6,8 +6,25 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 module.exports = {
   mode: "development",
   devtool: "eval-source-map",
+  entry: path.resolve(__dirname, '../src/game.js'),
+  resolve:{
+    alias:{
+      '@': path.resolve(__dirname, '../src')
+    }
+  },
+  devServer: {},
   module: {
     rules: [
+      {
+        enforce: 'pre',
+        test: /\.(js|vue)$/,
+        loader: 'eslint-loader',
+        options: {
+          fix: true,
+          formatter: require('eslint-friendly-formatter')
+        },
+        exclude: /node_modules/
+      },
       {
         test: /\.js$/,
         exclude: /node_modules/,
